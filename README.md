@@ -27,3 +27,6 @@ Issues.
 
 El único issue conocido es cuando ya hay un proceso ocupando el puerto 8000 del localhost. En este caso el comando npm start dara error.
 Hay que finalizar todo los procesos ocupando el puerto respectivo.  
+
+
+![alt tag]("https://github.com/omar1893/images/blob/master/1.png")
