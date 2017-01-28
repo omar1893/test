@@ -1,53 +1,73 @@
-  
-  <nav>
+<!-- BARRA PRINCIPAL ------>
+
+  <nav class="principal barra">
+    <div class="container"><a href="#" data-activates="nav-mobile" class="button-collapse top-nav full hide-on-large-only"><i class="material-icons">menu</i></a></div>
     <div class="nav-wrapper">
-      <a href="#" class="brand-logo">Logo</a>
-      <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <li><a href="">Sass</a></li>
-        <li><a href="">Components</a></li>
-        <li><a href="">JavaScript</a></li>
-      </ul>
+      <a href="#" class="brand-logo">Empresa C.A.</a>
+    </div>
+  </nav>
+  
+
+<!-- BARRA SUBPRINCIPAL ------>
+
+  <nav class="secundario">
+    <div class="nav-wrapper">
+      <form>
+        <div class="input-field">
+          <input id="search" type="search" ng-model="searchBox.name" required>
+          <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+          <i class="material-icons cerrar">close</i>
+        </div>
+      </form>
     </div>
   </nav>
 
-  <ul id="slide-out" class="side-nav fixed">
-    <li><div class="userView">
-      <div class="background">
-        <img src="http://www.intrawallpaper.com/static/images/background_patterns_lines_shadow_43860_1920x1080.jpg">
-      </div>
-      <a href="#!user"><img class="circle" src="images/yuna.jpg"></a>
-      <a href="#!name"><span class="white-text name">John Doe</span></a>
-      <a href="#!email"><span class="white-text email">jdandturk@gmail.com</span></a>
-    </div></li>
-    <li class="no-padding">
-        <ul class="collapsible collapsible-accordion">
-          <li>
-            <a class="collapsible-header" >Categorías<i class="material-icons">arrow_drop_down</i></a>
-            <div class="collapsible-body">
-              <ul>
-                <li ng-repeat="item in categorias"><a href="#!">{{item.name}}</a></li>
-              </ul>
-            </div>
-          </li>
-        </ul>
-    </li>
-    <li><a href="#!">Second Link</a></li>
-    <li><div class="divider"></div></li>
-    <li><a class="subheader">Subheader</a></li>
-    <li><a class="waves-effect" href="#!">Third Link With Waves</a></li>
-  </ul>
+  
 
-<div class="container">
-    <div class="row" ng-repeat="item in productos">
-    <div class="col s12 m6">
+<!---------------------- CONTENEDOR ------------------------>
+<div class="container fondo">
+
+  
+<div input-field>
+    <select class="" placeholder="Filtrar por" ng-model="selected" ng-change="hasChanged()" material-select watch>
+        <option value="" disabled>Filtrar por:</option>
+        <option value="all">Todos</option>
+          <optgroup label="Categorias">
+        <option ng-repeat="item in categorias" value="{{item.categori_id}}" >{{item.name}}</option>
+        </optgroup>
+        
+        <optgroup label="Status">
+          <option value="available">Disponible</option>
+          <option value="not">Agotado</option>
+          <option value="best_seller">BestSeller</option>
+        </optgroup>
+
+         <optgroup label="Precio">
+          <option value="bigger">Mayor a 30.000</option>
+          <option value="lower">Menor a 10.000</option>
+        </optgroup>       
+    </select>
+</div>
+<div input-field>
+    <select class="" ng-model="orderList" material-select watch>
+        <option value="" disabled>Ordenar por:</option>
+        <option value="name">Nombre</option>
+        <option value="-number" >Precio: Mayor a Menor</option>
+        <option value="number" >Precio: Menor a Mayor</option>
+    </select>
+</div>
+
+    <div class="row" ng-repeat="item in productos | filter: searchBox | orderBy: orderList">
+    <div class="col s12">
       <div class="card">
         <div class="card-image">
           <img src="{{item.img}}">
-          <a class="btn-floating btn-large halfway-fab waves-effect waves-light red"><i class="material-icons">shopping_cart</i></a>
+          <a class="btn-floating halfway-fab waves-effect waves-light terciario" ng-click="openModalConfirmation(item)" modal><i class="material-icons">shopping_cart</i></a>
         </div>
         <div class="card-content">
           <span class="card-title">{{item.name}}</span>
           <p>${{item.price}}</p>
+          <p class="invisible">{{item.number}}</p>
           <p ng-if="item.available"><i class="tiny material-icons disponible">check_circle</i> Producto Disponible</p>
           <p ng-if="!item.available"><i class="tiny material-icons agotado">error</i> Producto Agotado</p>
           <p ng-if="item.best_seller"><i class="tiny material-icons best_seller">loyalty</i> Producto Destacado</p>
@@ -56,7 +76,55 @@
       </div>
     </div>
   </div>
+  
 </div>
-  <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
+  
+  <div class="fixed-action-btn">
+    <a class="btn-floating btn-large principal">
+      <i class="large material-icons">menu</i>
+    </a>
+    <ul>
+      <li><a class="btn-floating terciario"><i class="material-icons">mode_edit</i></a></li>
+      <li><a class="btn-floating secundario" data-target='modal3' modal><i class="material-icons">format_list_numbered</i></a></li>
+    </ul>
+  </div> 
+
+    <!-- Modal Structure -->
+<div id="modal3" class="modal bottom-sheet">
+          <div class="modal-content">
+            <h4>Mi lista de Compras</h4>
+            <ul class="collection">
+              <li ng-repeat="item in cart" class="collection-item avatar">
+                <img src="{{item.img}}" alt="" class="circle">
+                <span class="title">{{item.name}}</span>
+                <p>${{item.price}}</p>
+                <p ng-if="item.available"><i class="tiny material-icons disponible">check_circle</i> Producto Disponible</p>
+                <p ng-if="!item.available"><i class="tiny material-icons agotado">error</i> Producto Agotado</p>
+                <a href="#!" class="secondary-content" ng-click="openRemoveItem(item)"><i class="material-icons remove">remove_shopping_cart</i></a>
+              </li>
+            </ul>
+          </div>
+</div>
+
+    <!-- Modal Structure -->
+  <div id="modal2" class="modal">
+    <div class="modal-content">
+      <h5>¿Estas seguro que quieres añadir este producto a tu carro?</h5>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat terciario" ng-click="closeModalConfirmation()">Aceptar</a>
+      <a href="#!" class="modal-action modal-close waves-effect waves-red btn-flat ">Cancelar</a>
+    </div>
+  </div>
+
+<div id="modal4" class="modal">
+    <div class="modal-content">
+      <h5>¿Estas seguro que quieres quitar este producto de tu carro?</h5>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat terciario" ng-click="closeRemoveItem()">Aceptar</a>
+      <a href="#!" class="modal-action modal-close waves-effect waves-red btn-flat ">Cancelar</a>
+    </div>
+</div>
 
 

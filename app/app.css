@@ -24,16 +24,6 @@
   padding-right: 0.3em;
 }
 
-nav, .container{
-  padding-left: 300px;
-}
-
-@media only screen and (max-width : 992px) {
-  nav, .container {
-      padding-left: 0;
-   }
-   }
-
 .halfway-fab{
   position: absolute !important;
   transform: translateY(-50%);
@@ -56,4 +46,64 @@ nav, .container{
 
 .material-icons.best_seller { 
   color: #ffeb3b ;
+}
+
+select{
+  margin-top:10px !important;
+  margin-bottom: 10px !important;
+  display: block !important;
+}
+
+.invisible{
+  display: none;
+}
+
+.card{
+width: 80%;
+margin: 0 auto!important;
+}
+
+.principal{
+  background-color: #ffa23e!important;
+}
+
+.secundario{
+  background-color: #7BCCAC!important;
+}
+
+.terciario{
+  background-color: #145b9b!important;
+  color: white!important;
+}
+
+nav.secundario{
+  height: 45px;
+}
+
+.fondo{
+  background-color: #EDEDED;
+}
+
+.brand-logo{
+  position: relative!important;
+}
+
+.nav-wrapper{
+  text-align: center;
+}
+
+.remove{
+  color: red;
+}
+
+nav .input-field label{
+  top: -4px!important;
+}
+
+.cerrar{
+  top: -4px!important;
+}
+
+.barra{
+  padding-right: 44px;
 }
