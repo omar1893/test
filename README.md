@@ -31,4 +31,4 @@ Hay que finalizar todo los procesos ocupando el puerto respectivo.
 
 ![alt tag]("https://github.com/omar1893/images/blob/master/1.png")
 
-![alt tag](https://github.com/jyfercolina/RappiImages/blob/master/RappiTestCapture/Screen%20Shot%202017-01-17%20at%207.52.01%20AM.png)
+![alt tag]("https://github.com/omar1893/images/blob/master/1.png")
